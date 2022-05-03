@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\ArchivoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,5 +23,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('departamentos', DepartamentoController::class)->middleware(['auth']);
+Route::resource('archivos', ArchivoController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';
