@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Archivo extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +19,15 @@ class Archivo extends Model
     protected $fillable = [
         'titulo',
         'fecha_hora',
-        'departamentos_id',
         'descripcion',
-        'users_id',
+        'fecha_documento',
+        'resolucion_ministerial',
+        'cife',
+        'fecha_emision',
+        'ano',
+        'departamento_id',
+        'tipo_documento_id',
+        'user_id'
     ];
 
     /**
@@ -27,7 +35,7 @@ class Archivo extends Model
      */
     public function departamento()
     {
-        return $this->belongsTo(Departamento::class, 'departamentos_id', 'id');
+        return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
     }
     
     /**
@@ -35,10 +43,10 @@ class Archivo extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function paginas() {
-        return $this->hasMany(Pagina::class, 'archivos_id');
+        return $this->hasMany(Pagina::class, 'archivo_id');
     }
 }

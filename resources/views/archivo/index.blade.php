@@ -34,7 +34,7 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$item->titulo}}</td>
                                 <td>{{$item->fecha_hora}}</td>
-                                <td>{{$item->departamentos_id}}</td>
+                                <td>{{$item->departamento_id}}</td>
                                 <td>{{$item->user_id}}</td>
                                 <td>{{$item->descripcion}}</td>
                                 <td>

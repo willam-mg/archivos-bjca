@@ -28,9 +28,17 @@
                                 </div>
                                 <div class="form-group">
                                     <strong>Departamento:</strong>
-                                    <select name="departamentos_id" id="">
-                                        @foreach ($departamentos as $dep)
-                                            <option value="{{$dep->id}}">{{$dep->nombre}}</option>
+                                    <select name="departamento_id" id="">
+                                        @foreach ($departamentos as $item)
+                                            <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <strong>Tipo documento:</strong>
+                                    <select name="tipo_documento_id" id="">
+                                        @foreach ($tipoDocumentos as $item)
+                                            <option value="{{$item->id}}">{{$item->nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>

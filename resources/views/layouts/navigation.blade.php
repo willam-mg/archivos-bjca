@@ -21,6 +21,9 @@
                     <x-nav-link :href="url('tipo-documento')" :active="request()->routeIs('tipo-documento.*')">
                         {{ __('Tipo documento') }}
                     </x-nav-link>
+                    <x-nav-link :href="url('archivos')" :active="request()->routeIs('archivos.*')">
+                        {{ __('Archivos') }}
+                    </x-nav-link>
                 </div>
             </div>
 

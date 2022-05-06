@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Archivo;
 use App\Models\Pagina;
 use App\Models\Departamento;
+use App\Models\TipoDocumento;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,9 +33,11 @@ class ArchivoController extends Controller
     public function create()
     {
         $departamentos = Departamento::all();
+        $tipoDocumentos = TipoDocumento::all();
 
         return view('archivo/create', [
-            'departamentos'=>$departamentos
+            'departamentos'=>$departamentos,
+            'tipoDocumentos'=>$tipoDocumentos
         ]);
     }
 
@@ -46,22 +49,20 @@ class ArchivoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $dataValidated = $request->validate([
             'titulo' => 'required',
-            'departamentos_id' => 'required',
+            'departamento_id' => 'required',
+            'tipo_documento_id' => 'required',
         ]);
         try {
-            $idUser = Auth::id();
             $archivo = new Archivo();
-            $archivo->titulo = $request->titulo;
-            $archivo->fecha_hora = date('Y-m-d H:i:s');
-            $archivo->departamentos_id = $request->departamentos_id;
-            $archivo->descripcion = $request->descripcion;
-            $archivo->users_id = $idUser;
-            $archivo->save();
+            $dataValidated['fecha_hora'] = date('Y-m-d H:i:s');
+            $dataValidated['user_id'] = Auth::id();
+            $archivo = Archivo::create($dataValidated);
 
             $pagina = new Pagina();
-            $pagina->archivos_id = $archivo->id;
+            $pagina->archivo_id = $archivo->id;
+            $pagina->fecha_hora = date('Y-m-d H:i:s');
             $pagina->numero = 1;
             $pagina->save();
 
@@ -128,6 +129,11 @@ class ArchivoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = Archivo::find($id);
+        $model->delete();
+        
+        return redirect()
+            ->route('archivos.index')
+            ->with('success','Registro eliminado');
     }
 }

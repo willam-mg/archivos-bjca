@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pagina extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class Pagina extends Model
         'numero',
         'descripcion',
         'imagen',
-        'archivos_id',
+        'archivo_id',
     ];
 
     /**
@@ -26,6 +27,6 @@ class Pagina extends Model
      */
     public function archivo()
     {
-        return $this->hasOne(Phone::class, 'archivos_id');
+        return $this->hasOne(Phone::class, 'archivo_id');
     }
 }
