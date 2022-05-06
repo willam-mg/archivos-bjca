@@ -40,7 +40,7 @@
                         </tbody>
                     </table>
 
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             @foreach ($model->paginas as $key => $pagina)
                                 <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="{{!$key?'active':''}}"></li>
@@ -52,6 +52,13 @@
                             @foreach ($model->paginas as $key => $pagina)
                                 <div class="carousel-item {{!$key?'active':''}}">
                                     <img class="d-block w-100" src="{{Url('uploads/'.$pagina->imagen)}}" alt="First slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h4>{{$pagina->descripcion}}</h4>
+                                        <h5>{{$pagina->numero}}</h5>
+                                        <a href="{{url('archivos/pagina', $pagina->id)}}" class="btn btn-outline-dark">
+                                            Ver pagina
+                                        </a>
+                                    </div>
                                 </div>
                             @endforeach
 
@@ -64,11 +71,11 @@
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
+                            <span class="sr-only">Anterior</span>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
+                            <span class="sr-only">Siguente</span>
                         </a>
                         </div>
                 </div>

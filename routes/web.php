@@ -26,5 +26,6 @@ Route::get('/dashboard', function () {
 Route::resource('departamentos', DepartamentoController::class)->middleware(['auth']);
 Route::resource('tipo-documento', TipoDocumentoController::class)->middleware(['auth']);
 Route::resource('archivos', ArchivoController::class)->middleware(['auth']);
+Route::get('archivos/pagina/{id}', [ArchivoController::class, 'pagina'])->middleware(['auth']);
 
 require __DIR__.'/auth.php';

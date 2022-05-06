@@ -58,6 +58,7 @@ class ArchivoController extends Controller
             'ano' => 'numeric',
             'departamento_id' => 'required',
             'tipo_documento_id' => 'required',
+            'descripcion' => 'max:200',
         ]);
         try {
             $archivo = new Archivo();
@@ -111,7 +112,15 @@ class ArchivoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $model = Archivo::find($id);
+        $departamentos = Departamento::all();
+        $tipoDocumentos = TipoDocumento::all();
+
+        return view('archivo/edit', [
+            'model'=>$model,
+            'departamentos'=>$departamentos,
+            'tipoDocumentos'=>$tipoDocumentos
+        ]);
     }
 
     /**
@@ -123,7 +132,37 @@ class ArchivoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dataValidated = $request->validate([
+            'titulo' => 'required',
+            'fecha_documento' => 'date',
+            'resolucion_ministerial' => 'max:45',
+            'cife' => 'max:45',
+            'fecha_emision' => 'date',
+            'ano' => 'numeric',
+            'departamento_id' => 'required',
+            'tipo_documento_id' => 'required',
+            'descripcion' => 'max:200',
+
+        ]);
+        try {
+            $archivo = Archivo::find($id);
+            $archivo->titulo = $dataValidated['titulo'];
+            $archivo->fecha_documento = $dataValidated['fecha_documento'];
+            $archivo->resolucion_ministerial = $dataValidated['resolucion_ministerial'];
+            $archivo->cife = $dataValidated['cife'];
+            $archivo->fecha_emision = $dataValidated['fecha_emision'];
+            $archivo->ano = $dataValidated['ano'];
+            $archivo->departamento_id = $dataValidated['departamento_id'];
+            $archivo->tipo_documento_id = $dataValidated['tipo_documento_id'];
+            $archivo->descripcion = $dataValidated['descripcion'];
+            $archivo->save();
+
+            return redirect()
+            ->route('archivos.index')
+            ->with('success','Registro satisfactorio');
+        } catch (\Throwable $th) {
+            throw new \Exception($th);
+        }
     }
 
     /**
@@ -140,5 +179,9 @@ class ArchivoController extends Controller
         return redirect()
             ->route('archivos.index')
             ->with('success','Registro eliminado');
+    }
+
+    public function pagina($id) {
+        return 'ok';
     }
 }
