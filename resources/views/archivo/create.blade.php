@@ -27,6 +27,26 @@
                                     <input type="text" name="titulo" value="" class="form-control" placeholder="Nombre">
                                 </div>
                                 <div class="form-group">
+                                    <strong>Fecha documento:</strong>
+                                    <input type="date" name="fecha_documento" class="form-control" placeholder="Fecha documento">
+                                </div>
+                                <div class="form-group">
+                                    <strong>Resolucion ministerial:</strong>
+                                    <input type="text" name="resolucion_ministerial" class="form-control" placeholder="Resolucion ministerial">
+                                </div>
+                                <div class="form-group">
+                                    <strong>CIFE:</strong>
+                                    <input type="text" name="cife" class="form-control" placeholder="CIFE">
+                                </div>
+                                <div class="form-group">
+                                    <strong>Fecha emision:</strong>
+                                    <input type="date" name="fecha_emision" class="form-control" placeholder="Fecha emision">
+                                </div>
+                                <div class="form-group">
+                                    <strong>Año:</strong>
+                                    <input type="number" name="ano" class="form-control" placeholder="Año">
+                                </div>
+                                <div class="form-group">
                                     <strong>Departamento:</strong>
                                     <select name="departamento_id" id="">
                                         @foreach ($departamentos as $item)

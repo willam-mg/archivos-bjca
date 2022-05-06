@@ -21,10 +21,16 @@
                             <tr>
                                 <th>#</th>
                                 <th>Titulo</th>
-                                <th>Fecha hora</th>
-                                <th>Departamento</th>
-                                <th>Usuario</th>
                                 <th>descripcion</th>
+                                <th>Fecha hora</th>
+                                <th>Fecha Documento</th>
+                                <th>Resolucion misniterial</th>
+                                <th>CIFE</th>
+                                <th>Fecha emision</th>
+                                <th>Año</th>
+                                <th>Departamento</th>
+                                <th>Tipo documento</th>
+                                <th>Usuario</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -33,10 +39,16 @@
                             <tr>
                                 <td>{{$key+1}}</td>
                                 <td>{{$item->titulo}}</td>
-                                <td>{{$item->fecha_hora}}</td>
-                                <td>{{$item->departamento_id}}</td>
-                                <td>{{$item->user_id}}</td>
                                 <td>{{$item->descripcion}}</td>
+                                <td>{{$item->fecha_hora}}</td>
+                                <td>{{$item->fecha_documento}}</td>
+                                <td>{{$item->resolucion_ministerial}}</td>
+                                <td>{{$item->cife}}</td>
+                                <td>{{$item->fecha_emision}}</td>
+                                <td>{{$item->ano}}</td>
+                                <td>{{$item->departamento_id}}</td>
+                                <td>{{$item->tipo_documento_id}}</td>
+                                <td>{{$item->user_id}}</td>
                                 <td>
                                     <form action="{{ route('archivos.destroy',$item->id) }}" method="POST">
 

@@ -51,6 +51,11 @@ class ArchivoController extends Controller
     {
         $dataValidated = $request->validate([
             'titulo' => 'required',
+            'fecha_documento' => 'date',
+            'resolucion_ministerial' => 'max:45',
+            'cife' => 'max:45',
+            'fecha_emision' => 'date',
+            'ano' => 'numeric',
             'departamento_id' => 'required',
             'tipo_documento_id' => 'required',
         ]);
