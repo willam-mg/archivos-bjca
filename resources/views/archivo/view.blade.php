@@ -40,6 +40,9 @@
                         </tbody>
                     </table>
 
+                    {!! QrCode::size(300)->generate( url('/archivo', $model->id) ) !!}
+
+
                     <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             @foreach ($model->paginas as $key => $pagina)
