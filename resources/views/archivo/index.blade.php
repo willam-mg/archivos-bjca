@@ -17,6 +17,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="table-responsive">
+                        @include('archivo.search', $model)
                         <table class="table table-light">
                             <thead class="thead-light">
                                 <tr>
@@ -51,7 +52,6 @@
                                     <td>{{$item->tipo_documento_id}}</td>
                                     <td>{{$item->user_id}}</td>
                                     <td>
-                                        
                                         <a class="btn btn-info" href="{{ route('archivos.show',$item->id) }}">Ver</a>
                                         
                                         <a class="btn btn-primary" href="{{ route('archivos.edit',$item->id) }}">Editar</a>

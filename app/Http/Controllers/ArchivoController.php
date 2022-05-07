@@ -17,11 +17,22 @@ class ArchivoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datos = Archivo::paginate(15);
+        $model = new Archivo();
+        $model->titulo  = $request->titulo;
+        $model->descripcion  = $request->descripcion;
+        $model->fecha_documento  = $request->fecha_documento;
+        $model->resolucion_ministerial  = $request->resolucion_ministerial;
+        $datos = Archivo::where('titulo', 'like', '%'.$model->titulo.'%')
+            // ->where('descripcion', 'like', '%'.$model->descripcion.'%')
+            ->where('fecha_documento', 'like', '%'.$model->fecha_documento.'%')
+            ->where('resolucion_ministerial', 'like', '%'.$model->resolucion_ministerial.'%')
+            ->paginate(15);
+
         return view('archivo/index', [
-            'datos'=>$datos
+            'datos'=>$datos,
+            'model'=>$model
         ]);
     }
 
@@ -182,6 +193,9 @@ class ArchivoController extends Controller
     }
 
     public function pagina($id) {
-        return 'ok';
+        $model = Pagina::find($id);
+        return view('archivo.pagina', [
+            'model'=>$model
+        ]);
     }
 }
