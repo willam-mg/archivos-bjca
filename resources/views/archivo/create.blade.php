@@ -98,7 +98,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="mb-3">
                                     <label class="form-label" for="imagen">Primer archivo</label>
-                                    <input class="form-control" type="file" name="imagen" required>
+                                    <input class="form-control" type="file" name="imagen" accept="application/pdf" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-end">
