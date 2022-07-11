@@ -84,14 +84,15 @@ class ArchivoController extends Controller
             $pagina->save();
 
             if ($request->has('imagen') && $request->imagen !== null){
-                $image = $request->imagen;
-                $imageName = 'archivo_'.$pagina->id.date('ymdHis').'.jpg';
-                $path = public_path().'/uploads/' . $imageName;
-                // return $path;
-                Image::make(file_get_contents($image))->save($path);   
+                $file = $request->file('imagen');
+                $filename = 'archivo_'.$pagina->id.date('ymdHis').'.pdf';
+                $file->move(
+                  public_path().'/uploads/', $filename
+                );
+                $pagina->imagen = $filename;
+                $pagina->save();
             }
-            $pagina->imagen = $imageName;
-            $pagina->save();
+            
 
             return redirect()
             ->route('archivos.index')

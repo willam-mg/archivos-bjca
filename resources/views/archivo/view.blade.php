@@ -15,73 +15,46 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <table class="table table-light">
-                        <tbody>
-                            <tr>
-                                <th>Titulo</th>
-                                <td>{{$model->titulo}}</td>
-                            </tr>
-                            <tr>
-                                <th>Departamento</th>
-                                <td>{{$model->departamento->nombre}}</td>
-                            </tr>
-                            <tr>
-                                <th>Descripcion</th>
-                                <td>{{$model->descripcion}}</td>
-                            </tr>
-                            <tr>
-                                <th>Fecha</th>
-                                <td>{{$model->fecha_hora}}</td>
-                            </tr>
-                            <tr>
-                                <th>Usuario</th>
-                                <td>{{$model->user->name}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    {!! QrCode::size(300)->generate( url('/archivo', $model->id) ) !!}
-
-
-                    <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            @foreach ($model->paginas as $key => $pagina)
-                                <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="{{!$key?'active':''}}"></li>
-                            @endforeach
-                            {{-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> --}}
-                        </ol>
-                        <div class="carousel-inner">
-                            @foreach ($model->paginas as $key => $pagina)
-                                <div class="carousel-item {{!$key?'active':''}}">
-                                    <img class="d-block w-100" src="{{Url('uploads/'.$pagina->imagen)}}" alt="First slide">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h4>{{$pagina->descripcion}}</h4>
-                                        <h5>{{$pagina->numero}}</h5>
-                                        <a href="{{url('archivos/pagina', $pagina->id)}}" class="btn btn-outline-dark">
-                                            Ver pagina
-                                        </a>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                            {{-- <div class="carousel-item">
-                                <img class="d-block w-100" src="..." alt="Second slide">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="..." alt="Third slide">
-                            </div> --}}
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                            <table class="table table-light">
+                                <tbody>
+                                    <tr>
+                                        <th>Titulo</th>
+                                        <td>{{$model->titulo}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Departamento</th>
+                                        <td>{{$model->departamento->nombre}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Descripcion</th>
+                                        <td>{{$model->descripcion}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <td>{{$model->fecha_hora}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <td>{{$model->user->name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Siguente</span>
-                        </a>
+                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                            {!! QrCode::size(300)->generate( url('/archivos', $model->id) ) !!}
                         </div>
-                </div>
+                    </div>
+                    
+                    @foreach ($model->paginas as $key => $pagina)
+                        <h4>Pagina {{$pagina->numero}}</h4>
+                        <small> {{$pagina->descripcion}} </small>
+                        <object data="{{Url('uploads/'.$pagina->imagen)}}" type="application/pdf" style="width:100%; height: 150vh">
+                            <a href="{{Url('uploads/'.$pagina->imagen)}}" target="_blank">Ver Pagina {{$pagina->numero}}</a>
+                        </object>
+                    @endforeach
+                        
             </div>
         </div>
     </div>
