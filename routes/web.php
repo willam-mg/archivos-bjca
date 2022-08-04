@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\TipoDocumentoController;
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,6 @@ Route::resource('departamentos', DepartamentoController::class)->middleware(['au
 Route::resource('tipo-documento', TipoDocumentoController::class)->middleware(['auth']);
 Route::resource('archivos', ArchivoController::class)->middleware(['auth']);
 Route::get('archivos/pagina/{id}', [ArchivoController::class, 'pagina'])->middleware(['auth']);
+Route::resource('users', UserController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';
