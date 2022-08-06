@@ -108,6 +108,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'rol' => 'required',
         ]);
       
         $model->update($request->all());

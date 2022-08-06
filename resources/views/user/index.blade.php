@@ -34,7 +34,7 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->email}}</td>
-                                    <td> rol </td>
+                                    <td> {{$item->nombre_rol}} </td>
                                     <td>
                                         <a class="btn btn-info" href="{{ route('users.show',$item->id) }}">Ver</a>
                                         

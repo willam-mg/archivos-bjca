@@ -36,6 +36,20 @@
                                     <input type="email" name="email" value="{{$model->email}}" class="form-control" @error('email') is-invalid @enderror" placeholder="Fecha documento" required>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label" for="rol">Rol</label>
+                                    <select name="rol" id="rol" class="form-control" @error('rol') is-invalid @enderror" required>
+                                        <option value="{{App\Models\User::ROL_ADMIN}}" @if($model->rol == App\Models\User::ROL_ADMIN) selected="selected" @endif>Adminsitrador</option>
+                                        <option value="{{App\Models\User::ROL_JEFE_ACADEMICO}}" @if($model->rol == App\Models\User::ROL_JEFE_ACADEMICO) selected="selected" @endif>Jefe academico</option>
+                                        <option value="{{App\Models\User::ROL_CORDINADOR_CARRERA}}" @if($model->rol == App\Models\User::ROL_CORDINADOR_CARRERA) selected="selected" @endif>Cordinador de  carrera</option>
+                                        <option value="{{App\Models\User::ROL_DOCENTE}}" @if($model->rol == App\Models\User::ROL_DOCENTE) selected="selected" @endif>Docente</option>
+                                    </select>
+                                    @error('rol')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-end">
                                 <button type="submit" class="btn btn-warning">Modificar</button>
                             </div>

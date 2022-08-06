@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
+    const ROL_ADMIN = 1;
+    const ROL_JEFE_ACADEMICO = 2;
+    const ROL_CORDINADOR_CARRERA = 3;
+    const ROL_DOCENTE = 4;
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
@@ -21,6 +25,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'rol',
         'password',
     ];
 
@@ -42,4 +47,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The append logic attributes accessors.
+     *
+     * @var array<string, string>
+     */
+    protected $appends = [
+        'nombre_rol'
+    ];
+
+    public function getNombreRolAttribute() {
+        switch ($this->rol) {
+            case self::ROL_ADMIN:
+                return 'Adminsitrador';
+                break;
+            case self::ROL_JEFE_ACADEMICO:
+                return 'Jefe Academico';
+                break;
+            case self::ROL_CORDINADOR_CARRERA:
+                return 'Cordinador de carrera';
+                break;
+            case self::ROL_DOCENTE:
+                return 'Docente';
+                break;
+            default:
+                return 'No asignado';
+                break;
+        }
+    }
 }

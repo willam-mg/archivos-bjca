@@ -55,6 +55,21 @@
                                                     name="password_confirmation" required />
                                 </div>
                             </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label" for="rol">Rol</label>
+                                    <select name="rol" id="rol" class="form-control" @error('rol') is-invalid @enderror" required>
+                                        <option value="{{App\Models\User::ROL_ADMIN}}">Adminsitrador</option>
+                                        <option value="{{App\Models\User::ROL_JEFE_ACADEMICO}}">Jefe academico</option>
+                                        <option value="{{App\Models\User::ROL_CORDINADOR_CARRERA}}">Cordinador de  carrera</option>
+                                        <option value="{{App\Models\User::ROL_DOCENTE}}">Docente</option>
+                                    </select>
+                                    @error('rol')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
+                                </div>
+                            </div>
                             
                             <div class="col-xs-12 col-sm-12 col-md-12 text-end">
                                 <button type="submit" class="btn btn-success">Regsitrar</button>

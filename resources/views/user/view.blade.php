@@ -29,7 +29,7 @@
                                     </tr>
                                     <tr>
                                         <th>Rol</th>
-                                        <td></td>
+                                        <td> {{$model->rol}} </td>
                                     </tr>
                                 </tbody>
                             </table>
