@@ -48,9 +48,9 @@
                                     <td>{{$item->cife}}</td>
                                     <td>{{$item->fecha_emision}}</td>
                                     <td>{{$item->ano}}</td>
-                                    <td>{{$item->departamento_id}}</td>
-                                    <td>{{$item->tipo_documento_id}}</td>
-                                    <td>{{$item->user_id}}</td>
+                                    <td>{{$item->departamento->nombre}}</td>
+                                    <td>{{$item->tipoDocumento->nombre}}</td>
+                                    <td>{{$item->user->name}}</td>
                                     <td>
                                         <a class="btn btn-info" href="{{ route('archivos.show',$item->id) }}">Ver</a>
                                         

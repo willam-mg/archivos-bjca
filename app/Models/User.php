@@ -8,14 +8,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    const ROL_ADMIN = 1;
-    const ROL_JEFE_ACADEMICO = 2;
-    const ROL_CORDINADOR_CARRERA = 3;
-    const ROL_DOCENTE = 4;
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    const ROL_ADMIN = 'administrador';
+    const ROL_JEFE_ACADEMICO = 'jefe_academico';
+    const ROL_CORDINADOR_CARRERA = 'cordinador_carrera';
+    const ROL_DOCENTE = 'docente';
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.

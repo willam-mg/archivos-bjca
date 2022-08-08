@@ -38,21 +38,28 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="mb-3">
-                                    <x-label for="password" :value="__('Password')" />
-
-                                    <x-input id="password" class="block mt-1 w-full"
-                                                    type="password"
-                                                    name="password"
-                                                    required autocomplete="new-password" />
+                                    <label class="form-label" for="password">Password</label>
+                                    <input id="password" class="form-control"
+                                        type="password"
+                                        name="password"
+                                        @error('password') is-invalid @enderror"
+                                        required autocomplete="new-password">
+                                    @error('name')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="mb-3">
-                                    <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                                    <x-input id="password_confirmation" class="block mt-1 w-full"
-                                                    type="password"
-                                                    name="password_confirmation" required />
+                                    <label class="form-label" for="password_confirmation">Confirm Password</label>
+                                    <input id="password_confirmation" class="form-control"
+                                        type="password"
+                                        name="password_confirmation"
+                                        @error('password_confirmation') is-invalid @enderror"
+                                        required autocomplete="new-password">
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
                                 </div>
                             </div>
 

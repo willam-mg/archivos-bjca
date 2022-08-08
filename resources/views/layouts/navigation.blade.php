@@ -15,18 +15,26 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="url('users')" :active="request()->routeIs('users.*')">
-                        {{ __('Usuarios') }}
-                    </x-nav-link>
-                    <x-nav-link :href="url('departamentos')" :active="request()->routeIs('departamentos.*')">
-                        {{ __('Departamentos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="url('tipo-documento')" :active="request()->routeIs('tipo-documento.*')">
-                        {{ __('Tipo documento') }}
-                    </x-nav-link>
-                    <x-nav-link :href="url('archivos')" :active="request()->routeIs('archivos.*')">
-                        {{ __('Archivos') }}
-                    </x-nav-link>
+                    @role(\App\Models\User::ROL_ADMIN)
+                        <x-nav-link :href="url('users')" :active="request()->routeIs('users.*')">
+                            {{ __('Usuarios') }}
+                        </x-nav-link>
+                        <x-nav-link :href="url('departamentos')" :active="request()->routeIs('departamentos.*')">
+                            {{ __('Departamentos') }}
+                        </x-nav-link>
+                        <x-nav-link :href="url('tipo-documento')" :active="request()->routeIs('tipo-documento.*')">
+                            {{ __('Tipo documento') }}
+                        </x-nav-link>
+                        <x-nav-link :href="url('archivos')" :active="request()->routeIs('archivos.*')">
+                            {{ __('Archivos') }}
+                        </x-nav-link>
+                    @endrole
+                    @hasanyrole(\App\Models\User::ROL_JEFE_ACADEMICO.'|'.\App\Models\User::ROL_CORDINADOR_CARRERA.'|'.\App\Models\User::ROL_DOCENTE)
+                        <x-nav-link :href="url('archivos')" :active="request()->routeIs('archivos.*')">
+                            {{ __('Archivos') }}
+                        </x-nav-link>
+                    @endhasanyrole
+                    
                 </div>
             </div>
 
@@ -35,7 +43,13 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>
+                                <b>
+                                    {{ Auth::user()->name }}
+                                </b>
+                                <br>
+                                <small> {{ Auth::user()->getRoleNames()->firstOrFail() }} </small>
+                            </div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

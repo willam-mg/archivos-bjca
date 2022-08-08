@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -53,14 +55,17 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'rol' => ['required', 'string'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'rol' => $request->rol,
             'password' => Hash::make($request->password),
         ]);
+        $user->assignRole($request->rol);
 
         return redirect()
             ->route('users.index')
@@ -105,6 +110,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $model = User::find($id);
+        $lastRol = $model->rol;
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -112,6 +118,8 @@ class UserController extends Controller
         ]);
       
         $model->update($request->all());
+        $model->removeRole($lastRol);
+        $model->assignRole($request->rol);
       
         return redirect()
             ->route('users.index')
@@ -132,5 +140,17 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->with('success','Registro eliminado');
+    }
+
+    public function createRoles() {
+        $role1 = Role::create(['name' => User::ROL_ADMIN]);
+        $role2 = Role::create(['name' => User::ROL_JEFE_ACADEMICO]);
+        $role3 = Role::create(['name' => User::ROL_CORDINADOR_CARRERA]);
+        $role4 = Role::create(['name' => User::ROL_DOCENTE]);
+    }
+
+    public function asignRol($id, $role) {
+        $user = User::find($id);
+        $user->assignRole($role);
     }
 }

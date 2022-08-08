@@ -33,6 +33,14 @@ class Archivo extends Model
     /**
      * Get the phone associated with the user.
      */
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id', 'id');
+    }
+    
+    /**
+     * Get the phone associated with the user.
+     */
     public function departamento()
     {
         return $this->belongsTo(Departamento::class, 'departamento_id', 'id');

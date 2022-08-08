@@ -9,6 +9,7 @@ use App\Models\Departamento;
 use App\Models\TipoDocumento;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ArchivoController extends Controller
 {
@@ -19,6 +20,19 @@ class ArchivoController extends Controller
      */
     public function index(Request $request)
     {
+        $rol = Auth::user()->getRoleNames()->firstOrFail();
+        $roles_names = User::ROL_DOCENTE;
+        if ($rol == User::ROL_ADMIN) {
+            $roles_names = [User::ROL_ADMIN, User::ROL_JEFE_ACADEMICO, User::ROL_CORDINADOR_CARRERA, User::ROL_DOCENTE];
+        }
+        if ($rol == User::ROL_JEFE_ACADEMICO) {
+            $roles_names = [User::ROL_JEFE_ACADEMICO, User::ROL_CORDINADOR_CARRERA, User::ROL_DOCENTE];
+        }
+        if ($rol == User::ROL_CORDINADOR_CARRERA) {
+            $roles_names = [User::ROL_CORDINADOR_CARRERA, User::ROL_DOCENTE];
+        }
+        // return $rol;
+        $idUsers = User::role($roles_names)->pluck('id');
         $model = new Archivo();
         $model->titulo  = $request->titulo;
         $model->descripcion  = $request->descripcion;
@@ -28,6 +42,7 @@ class ArchivoController extends Controller
             // ->where('descripcion', 'like', '%'.$model->descripcion.'%')
             ->where('fecha_documento', 'like', '%'.$model->fecha_documento.'%')
             ->where('resolucion_ministerial', 'like', '%'.$model->resolucion_ministerial.'%')
+            ->whereIn('user_id', $idUsers)
             ->paginate(15);
 
         return view('archivo/index', [
