@@ -1,17 +1,6 @@
+@section('title', __('Archivos'))
+@section('breadcrumbs', Breadcrumbs::render('archivos.create') )
 <x-app-layout>
-    <x-slot name="header">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('Nuevo archivo') }}
-                </h2>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-end">
-                
-            </div>
-        </div>
-    </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -63,10 +52,10 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label" for="departamento">Departamento</label>
+                                    <label class="form-label" for="seccion">Seccion</label>
                                     <select name="departamento_id"class="form-control @error('departamento_id') is-invalid @enderror" required>
-                                        @foreach ($departamentos as $item)
-                                            <option value="">Selecciona departamento</option>
+                                        @foreach ($secciones as $item)
+                                            <option value="">Selecciona seccion</option>
                                             <option value="{{$item->id}}">{{$item->nombre}}</option>
                                         @endforeach
                                     </select>
@@ -102,7 +91,10 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                <button type="submit" class="btn btn-success">Regsitrar</button>
+                                <button type="submit" class="btn btn-outline-success">
+                                    <i class="bi bi-plus"></i>
+                                    Regsitrar
+                                </button>
                             </div>
                         </div>
                     </form>

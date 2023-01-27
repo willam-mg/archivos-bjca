@@ -24,8 +24,8 @@
                                         <td>{{$model->titulo}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Departamento</th>
-                                        <td>{{$model->departamento->nombre}}</td>
+                                        <th>Seccion</th>
+                                        <td>{{$model->seccion->nombre}}</td>
                                     </tr>
                                     <tr>
                                         <th>Descripcion</th>

@@ -63,10 +63,10 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label" for="departamento">Departamento</label>
+                                    <label class="form-label" for="seccion">Seccion</label>
                                     <select name="departamento_id"class="form-control @error('departamento_id') is-invalid @enderror" required>
-                                        <option value="">Selecciona departamento</option>
-                                        @foreach ($departamentos as $item)
+                                        <option value="">Selecciona seccion</option>
+                                        @foreach ($secciones as $item)
                                             @if ($model->departamento_id == $item->id)
                                                 <option value="{{$item->id}}" selected="selected">{{$item->nombre}}</option>
                                             @else

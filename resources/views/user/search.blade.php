@@ -14,9 +14,20 @@
                 <input type="email" name="email" value="{{$model->email}}" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="email">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <div class="mb-3 pt-4">
-                <button type="submit" class="btn btn-primary"> Buscar </button>
+                <button type="submit" class="btn btn-outline-primary"> 
+                    <i class="bi bi-search"></i>
+                    Buscar
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-end">
+            <div class="mb-3 pt-4">
+                <a href="{{url('users/create')}}" class="btn btn-success">
+                    <i class="bi bi-plus"></i>
+                    Nuevo
+                </a>
             </div>
         </div>
     </div>

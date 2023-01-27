@@ -1,23 +1,12 @@
+@section('title', __('Usuarios'))
+@section('breadcrumbs', Breadcrumbs::render('users') )
 <x-app-layout>
-    <x-slot name="header">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('Usuarios') }}
-                </h2>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-end">
-                <a href="{{url('users/create')}}" class="btn btn-success">Nuevo</a>
-            </div>
-        </div>
-    </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    @include('user.search', $model)
                     <div class="table-responsive">
-                        @include('user.search', $model)
                         <table class="table table-light">
                             <thead class="thead-light">
                                 <tr>
@@ -36,23 +25,32 @@
                                     <td>{{$item->email}}</td>
                                     <td> {{$item->nombre_rol}} </td>
                                     <td>
-                                        <a class="btn btn-info" href="{{ route('users.show',$item->id) }}">Ver</a>
-                                        
-                                        <a class="btn btn-primary" href="{{ route('users.edit',$item->id) }}">Editar</a>
-                                        
-                                        <form action="{{ route('users.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemnto">
-                                            @csrf
-                                            @method('DELETE')
-    
-                                            <button type="submit" class="btn btn-danger delete">Eliminar</button>
-                                        </form>
+                                        <div class="d-flex">
+                                            <a class="btn btn-outline-secondary" href="{{ route('users.show',$item->id) }}">
+                                                <i class="bi bi-eye"></i>
+                                            </a> 
+                        
+                                            <a class="btn btn-outline-secondary" href="{{ route('users.edit',$item->id) }}">
+                                                <i class="bi bi-pencil"></i>
+                                            </a> 
+
+                                            <form action="{{ route('users.destroy',$item->id) }}" method="POST"
+                                                data-confirm="Esta seguro de eliminar este elemnto">
+                                                @csrf
+                                                @method('DELETE')
+                        
+                                                <button type="submit" class="btn btn-outline-secondary">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                            
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-
                     {{ $datos->onEachSide(5)->links() }}
 
                 </div>

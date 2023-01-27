@@ -11,6 +11,8 @@ class Archivo extends Model
     use HasFactory,
         SoftDeletes;
 
+    protected $table = 'archivos';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,9 +43,9 @@ class Archivo extends Model
     /**
      * Get the phone associated with the user.
      */
-    public function departamento()
+    public function seccion()
     {
-        return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
+        return $this->belongsTo(Seccion::class, 'departamento_id', 'id');
     }
     
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Archivo;
 use App\Models\Pagina;
-use App\Models\Departamento;
+use App\Models\Seccion;
 use App\Models\TipoDocumento;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Auth;
@@ -34,16 +34,14 @@ class ArchivoController extends Controller
         // return $rol;
         $idUsers = User::role($roles_names)->pluck('id');
         $model = new Archivo();
-        $model->titulo  = $request->titulo;
         $model->descripcion  = $request->descripcion;
-        $model->fecha_documento  = $request->fecha_documento;
-        $model->resolucion_ministerial  = $request->resolucion_ministerial;
-        $datos = Archivo::where('titulo', 'like', '%'.$model->titulo.'%')
-            // ->where('descripcion', 'like', '%'.$model->descripcion.'%')
-            ->where('fecha_documento', 'like', '%'.$model->fecha_documento.'%')
-            ->where('resolucion_ministerial', 'like', '%'.$model->resolucion_ministerial.'%')
-            ->whereIn('user_id', $idUsers)
-            ->paginate(15);
+        $model->fecha_inicio  = $request->fecha_inicio;
+        $model->fecha_finalizacion  = $request->fecha_finalizacion;
+        $datos = Archivo::where('descripcion', 'like', '%' . $model->descripcion . '%')
+            ->where('fecha_inicio', 'like', '%' . $model->fecha_inicio . '%')
+            ->where('fecha_finalizacion', 'like', '%' . $model->fecha_finalizacion . '%')
+            ->whereIn('user_id', $idUsers);
+        $datos = Archivo::paginate(15);
 
         return view('archivo/index', [
             'datos'=>$datos,
@@ -58,11 +56,11 @@ class ArchivoController extends Controller
      */
     public function create()
     {
-        $departamentos = Departamento::all();
+        $secciones = Seccion::all();
         $tipoDocumentos = TipoDocumento::all();
 
         return view('archivo/create', [
-            'departamentos'=>$departamentos,
+            'secciones'=>$secciones,
             'tipoDocumentos'=>$tipoDocumentos
         ]);
     }
@@ -140,12 +138,12 @@ class ArchivoController extends Controller
     public function edit($id)
     {
         $model = Archivo::find($id);
-        $departamentos = Departamento::all();
+        $secciones = Seccion::all();
         $tipoDocumentos = TipoDocumento::all();
 
         return view('archivo/edit', [
             'model'=>$model,
-            'departamentos'=>$departamentos,
+            'secciones'=>$secciones,
             'tipoDocumentos'=>$tipoDocumentos
         ]);
     }

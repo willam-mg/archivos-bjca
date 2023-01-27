@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\SeccionController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TipoDocumentoController;
@@ -18,8 +18,8 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('dashboard');
+})->middleware(['auth']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,7 +30,7 @@ Route::get('roles/create', [UserController::class, 'createRoles']);
 Route::get('roles/assign/{id}/{role}', [UserController::class, 'asignRol']);
 
 Route::group(['middleware' => ['role:'.User::ROL_ADMIN]], function () {
-    Route::resource('departamentos', DepartamentoController::class)->middleware(['auth']);
+    Route::resource('secciones', SeccionController::class)->middleware(['auth']);
     Route::resource('tipo-documento', TipoDocumentoController::class)->middleware(['auth']);
     Route::resource('users', UserController::class)->middleware(['auth']);
 });

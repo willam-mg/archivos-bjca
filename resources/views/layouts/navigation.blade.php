@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="border-b border-gray-100" style="background-color:#2E6CAE">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,26 +6,26 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{asset('/img/logo.svg')}}" alt="LOGO" width="60">
+                        <img src="{{asset('/img/logo_nav_menu.svg')}}" alt="LOGO" width="200">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link class="text-white hover:text-white" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @role(\App\Models\User::ROL_ADMIN)
-                        <x-nav-link :href="url('users')" :active="request()->routeIs('users.*')">
+                        <x-nav-link class="text-white hover:text-white" :href="url('users')" :active="request()->routeIs('users.*')">
                             {{ __('Usuarios') }}
                         </x-nav-link>
-                        <x-nav-link :href="url('departamentos')" :active="request()->routeIs('departamentos.*')">
-                            {{ __('Departamentos') }}
+                        <x-nav-link class="text-white hover:text-white" :href="url('secciones')" :active="request()->routeIs('secciones.*')">
+                            {{ __('Secciones') }}
                         </x-nav-link>
-                        <x-nav-link :href="url('tipo-documento')" :active="request()->routeIs('tipo-documento.*')">
+                        <x-nav-link class="text-white hover:text-white" :href="url('tipo-documento')" :active="request()->routeIs('tipo-documento.*')">
                             {{ __('Tipo documento') }}
                         </x-nav-link>
-                        <x-nav-link :href="url('archivos')" :active="request()->routeIs('archivos.*')">
+                        <x-nav-link class="text-white hover:text-white" :href="url('archivos')" :active="request()->routeIs('archivos.*')">
                             {{ __('Archivos') }}
                         </x-nav-link>
                     @endrole
@@ -42,7 +42,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        <button class="text-white hover:text-white flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <div>
                                 <b>
                                     {{ Auth::user()->name }}

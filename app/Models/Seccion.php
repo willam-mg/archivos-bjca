@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Departamento extends Model
+class Seccion extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $table = 'secciones';
 
     /**
      * The attributes that are mass assignable.

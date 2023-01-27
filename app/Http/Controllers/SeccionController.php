@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Departamento;
+use App\Models\Seccion;
 
-class DepartamentoController extends Controller
+class SeccionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        $datos = Departamento::paginate(15);
+        $datos = Seccion::paginate(15);
 
-        return view('departamento/index', [
+        return view('seccion/index', [
             'datos'=>$datos
         ]);
     }
@@ -28,7 +28,7 @@ class DepartamentoController extends Controller
      */
     public function create()
     {
-        return view('departamento/create');
+        return view('seccion/create');
     }
 
     /**
@@ -43,11 +43,11 @@ class DepartamentoController extends Controller
             'nombre' => 'required',
         ]);
         
-        $model = new Departamento();
+        $model = new Seccion();
         $model->create($request->all());
       
         return redirect()
-            ->route('departamentos.index')
+            ->route('secciones.index')
             ->with('success','Registro satisfactorio');
     }
 
@@ -59,8 +59,8 @@ class DepartamentoController extends Controller
      */
     public function show($id)
     {
-        $model = Departamento::find($id);
-        return view('departamento/view', [
+        $model = Seccion::find($id);
+        return view('seccion/view', [
             'model'=>$model
         ]);
     }
@@ -73,8 +73,8 @@ class DepartamentoController extends Controller
      */
     public function edit($id)
     {
-        $model = Departamento::find($id);
-        return view('departamento/edit', [
+        $model = Seccion::find($id);
+        return view('seccion/edit', [
             'model'=>$model
         ]);
     }
@@ -88,7 +88,7 @@ class DepartamentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $model = Departamento::find($id);
+        $model = Seccion::find($id);
         $request->validate([
             'nombre' => 'required',
         ]);
@@ -96,7 +96,7 @@ class DepartamentoController extends Controller
         $model->update($request->all());
       
         return redirect()
-            ->route('departamentos.index')
+            ->route('secciones.index')
             ->with('success','Registro satisfactorio');
     }
 
@@ -108,11 +108,11 @@ class DepartamentoController extends Controller
      */
     public function destroy($id)
     {
-        $model = Departamento::find($id);
+        $model = Seccion::find($id);
         $model->delete();
         
         return redirect()
-            ->route('departamentos.index')
+            ->route('secciones.index')
             ->with('success','Registro eliminado');
     }
 }

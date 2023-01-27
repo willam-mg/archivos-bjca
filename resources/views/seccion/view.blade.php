@@ -1,5 +1,5 @@
-@section('title', __('Tipo Documento '.$model->id))
-@section('breadcrumbs', Breadcrumbs::render('tipo-documento.show', $model) )
+@section('title', __('Seccion '.$model->id ))
+@section('breadcrumbs', Breadcrumbs::render('secciones.show', $model) )
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -16,7 +16,7 @@
                                 </tbody>
                             </table>
                             <div class="text-end">
-                                <a href="{{url('tipo-documento')}}" class="btn btn-outline-secondary">
+                                <a href="{{url('secciones')}}" class="btn btn-outline-secondary">
                                     <i class="bi bi-x"></i>
                                     Cerrar
                                 </a>

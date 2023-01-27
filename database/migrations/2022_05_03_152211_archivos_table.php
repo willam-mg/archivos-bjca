@@ -13,20 +13,27 @@ class ArchivosTable extends Migration
      */
     public function up()
     {
-        if (Schema::hasTable('tipo_documentos') && Schema::hasTable('departamentos') && Schema::hasTable('users')) {
+        if (Schema::hasTable('tipo_documentos') && Schema::hasTable('secciones') && Schema::hasTable('users')) {
             Schema::create('archivos', function (Blueprint $table) {
                 $table->id();
-                $table->string('titulo', 100);
-                $table->dateTime('fecha_hora');
-                $table->string('descripcion', 200)->nullable();
-                $table->date('fecha_documento')->nullable();
-                $table->string('resolucion_ministerial', 45)->nullable();
-                $table->string('cife', 45)->nullable();
-                $table->date('fecha_emision')->nullable();
-                $table->integer('ano')->comment('Año')->nullable();
-                $table->foreignId('departamento_id')->constrained('departamentos');
-                $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
+                $table->string('fondo', 50);
+                $table->foreignId('seccion_id')->constrained('secciones');
+                $table->string('serie', 50);
+                $table->string('descripcion', 200)->nullable()->comment('(asunto o CITE)');
+                $table->date('fecha_inicio');
+                $table->date('fecha_finalizacion');
+                $table->string('folio', 50);
+                $table->string('volumen', 50);
+                $table->string('ubicacion', 50);
                 $table->foreignId('user_id')->constrained('users');
+                $table->dateTime('fecha_hora')->comment('fecha de registro en sistema');
+                $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
+                // $table->string('titulo', 100);
+                // $table->date('fecha_documento')->nullable();
+                // $table->string('resolucion_ministerial', 45)->nullable();
+                // $table->string('cife', 45)->nullable();
+                // $table->date('fecha_emision')->nullable();
+                // $table->integer('ano')->comment('Año')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });
