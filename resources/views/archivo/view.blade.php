@@ -20,24 +20,56 @@
                             <table class="table table-light">
                                 <tbody>
                                     <tr>
-                                        <th>Titulo</th>
-                                        <td>{{$model->titulo}}</td>
+                                        <th>fondo</th>
+                                        <td>{{$model->fondo}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Seccion</th>
-                                        <td>{{$model->seccion->nombre}}</td>
+                                        <th>seccion_id</th>
+                                        <td>{{$model->seccion_id}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Descripcion</th>
+                                        <th>serie</th>
+                                        <td>{{$model->serie}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>autor</th>
+                                        <td>{{$model->autor}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>descripcion</th>
                                         <td>{{$model->descripcion}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Fecha</th>
+                                        <th>fecha_inicio</th>
+                                        <td>{{$model->fecha_inicio}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>fecha_finalizacion</th>
+                                        <td>{{$model->fecha_finalizacion}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>folio</th>
+                                        <td>{{$model->folio}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>volumen</th>
+                                        <td>{{$model->volumen}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ubicacion</th>
+                                        <td>{{$model->ubicacion}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>user_id</th>
+                                        <td>{{$model->user_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>fecha_hora</th>
                                         <td>{{$model->fecha_hora}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Usuario</th>
-                                        <td>{{$model->user->name}}</td>
+                                        <th>tipo_documento_id</th>
+                                        <td>{{$model->tipo_documento_id}}</td>
                                     </tr>
                                 </tbody>
                             </table>

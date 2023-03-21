@@ -19,17 +19,19 @@ class Archivo extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'titulo',
-        'fecha_hora',
+        'fondo',
+        'seccion_id',
+        'serie',
+        'autor',
         'descripcion',
-        'fecha_documento',
-        'resolucion_ministerial',
-        'cife',
-        'fecha_emision',
-        'ano',
-        'departamento_id',
+        'fecha_inicio',
+        'fecha_finalizacion',
+        'folio',
+        'volumen',
+        'ubicacion',
+        'user_id',
+        'fecha_hora',
         'tipo_documento_id',
-        'user_id'
     ];
 
     /**

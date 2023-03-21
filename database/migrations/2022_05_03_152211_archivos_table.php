@@ -19,6 +19,7 @@ class ArchivosTable extends Migration
                 $table->string('fondo', 50);
                 $table->foreignId('seccion_id')->constrained('secciones');
                 $table->string('serie', 50);
+                $table->string('autor', 50)->nullable()->comment('autor');
                 $table->string('descripcion', 200)->nullable()->comment('(asunto o CITE)');
                 $table->date('fecha_inicio');
                 $table->date('fecha_finalizacion');

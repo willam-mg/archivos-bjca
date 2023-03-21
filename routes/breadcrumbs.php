@@ -34,7 +34,7 @@ Breadcrumbs::for('users.show', function (BreadcrumbTrail $trail, $model) {
 // Home > Tipo de document
 Breadcrumbs::for('tipo-documento', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Tipos de documento', url('tipo-documento'));
+    $trail->push('Series', url('tipo-documento'));
 });
 Breadcrumbs::for('tipo-documento.create', function (BreadcrumbTrail $trail) {
     $trail->parent('tipo-documento');

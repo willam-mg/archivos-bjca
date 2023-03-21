@@ -10,6 +10,7 @@ use App\Models\TipoDocumento;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class ArchivoController extends Controller
 {
@@ -37,15 +38,55 @@ class ArchivoController extends Controller
         $model->descripcion  = $request->descripcion;
         $model->fecha_inicio  = $request->fecha_inicio;
         $model->fecha_finalizacion  = $request->fecha_finalizacion;
-        $datos = Archivo::where('descripcion', 'like', '%' . $model->descripcion . '%')
-            ->where('fecha_inicio', 'like', '%' . $model->fecha_inicio . '%')
-            ->where('fecha_finalizacion', 'like', '%' . $model->fecha_finalizacion . '%')
-            ->whereIn('user_id', $idUsers);
+        $datos = Archivo::when($request->fondo, function ($query) use ($request) {
+                $query->where("fondo", 'like', '%'.$request->fondo.'%');
+            })
+            ->when($request->seccion_id, function ($query) use ($request) {
+                $query->where("seccion_id", 'like', '%'.$request->seccion_id.'%');
+            })
+            ->when($request->serie, function ($query) use ($request) {
+                $query->where("serie", 'like', '%'.$request->serie.'%');
+            })
+            ->when($request->autor, function ($query) use ($request) {
+                $query->where("autor", 'like', '%'.$request->autor.'%');
+            })
+            ->when($request->descripcion, function ($query) use ($request) {
+                $query->where("descripcion", 'like', '%'.$request->descripcion.'%');
+            })
+            ->when($request->fecha_inicio, function ($query) use ($request) {
+                $query->where("fecha_inicio", 'like', '%'.$request->fecha_inicio.'%');
+            })
+            ->when($request->fecha_finalizacion, function ($query) use ($request) {
+                $query->where("fecha_finalizacion", 'like', '%'.$request->fecha_finalizacion.'%');
+            })
+            ->when($request->folio, function ($query) use ($request) {
+                $query->where("folio", 'like', '%'.$request->folio.'%');
+            })
+            ->when($request->volumen, function ($query) use ($request) {
+                $query->where("volumen", 'like', '%'.$request->volumen.'%');
+            })
+            ->when($request->ubicacion, function ($query) use ($request) {
+                $query->where("ubicacion", 'like', '%'.$request->ubicacion.'%');
+            })
+            ->when($request->user_id, function ($query) use ($request) {
+                $query->where("user_id", 'like', '%'.$request->user_id.'%');
+            })
+            ->when($request->fecha_hora, function ($query) use ($request) {
+                $query->where("fecha_hora", 'like', '%'.$request->fecha_hora.'%');
+            })
+            ->when($request->tipo_documento_id, function ($query) use ($request) {
+                $query->where("tipo_documento_id", 'like', '%'.$request->tipo_documento_id.'%');
+            })->whereIn('user_id', $idUsers);
+
         $datos = Archivo::paginate(15);
+        $secciones = Seccion::all();
+        $tipoDocumentos = TipoDocumento::all();
 
         return view('archivo/index', [
             'datos'=>$datos,
-            'model'=>$model
+            'model'=>$model,
+            'secciones'=> $secciones,
+            'tipoDocumentos'=> $tipoDocumentos,
         ]);
     }
 
@@ -74,18 +115,20 @@ class ArchivoController extends Controller
     public function store(Request $request)
     {
         $dataValidated = $request->validate([
-            'titulo' => 'required',
-            'fecha_documento' => 'date',
-            'resolucion_ministerial' => 'max:45',
-            'cife' => 'max:45',
-            'fecha_emision' => 'date',
-            'ano' => 'numeric',
-            'departamento_id' => 'required',
+            'fondo' => 'required',
+            'seccion_id' => 'required',
+            'serie' => 'required',
+            'autor' => 'required',
+            'descripcion' => 'required',
+            'fecha_inicio' => 'required',
+            'fecha_finalizacion' => 'required',
+            'folio' => 'required',
+            'volumen' => 'required',
+            'ubicacion' => 'required',
             'tipo_documento_id' => 'required',
-            'descripcion' => 'max:200',
         ]);
         try {
-            $archivo = new Archivo();
+            DB::beginTransaction();
             $dataValidated['fecha_hora'] = date('Y-m-d H:i:s');
             $dataValidated['user_id'] = Auth::id();
             $archivo = Archivo::create($dataValidated);
@@ -105,13 +148,14 @@ class ArchivoController extends Controller
                 $pagina->imagen = $filename;
                 $pagina->save();
             }
-            
 
+            DB::commit();
             return redirect()
             ->route('archivos.index')
             ->with('success','Registro satisfactorio');
         } catch (\Throwable $th) {
-            throw new \Exception($th);
+            DB::rollBack();
+            throw new \Exception($th->getMessage());
         }
     }
 
@@ -158,28 +202,36 @@ class ArchivoController extends Controller
     public function update(Request $request, $id)
     {
         $dataValidated = $request->validate([
-            'titulo' => 'required',
-            'fecha_documento' => 'date',
-            'resolucion_ministerial' => 'max:45',
-            'cife' => 'max:45',
-            'fecha_emision' => 'date',
-            'ano' => 'numeric',
-            'departamento_id' => 'required',
+            'fondo' => 'required',
+            'seccion_id' => 'required',
+            'serie' => 'required',
+            'autor' => 'required',
+            'descripcion' => 'required;max:200',
+            'fecha_inicio' => 'required',
+            'fecha_finalizacion' => 'required',
+            'folio' => 'required',
+            'volumen' => 'required',
+            'ubicacion' => 'required',
+            'user_id' => 'required',
+            'fecha_hora' => 'required',
             'tipo_documento_id' => 'required',
-            'descripcion' => 'max:200',
 
         ]);
         try {
             $archivo = Archivo::find($id);
-            $archivo->titulo = $dataValidated['titulo'];
-            $archivo->fecha_documento = $dataValidated['fecha_documento'];
-            $archivo->resolucion_ministerial = $dataValidated['resolucion_ministerial'];
-            $archivo->cife = $dataValidated['cife'];
-            $archivo->fecha_emision = $dataValidated['fecha_emision'];
-            $archivo->ano = $dataValidated['ano'];
-            $archivo->departamento_id = $dataValidated['departamento_id'];
-            $archivo->tipo_documento_id = $dataValidated['tipo_documento_id'];
+            $archivo->fondo = $dataValidated['fondo'];
+            $archivo->seccion_id = $dataValidated['seccion_id'];
+            $archivo->serie = $dataValidated['serie'];
+            $archivo->autor = $dataValidated['autor'];
             $archivo->descripcion = $dataValidated['descripcion'];
+            $archivo->fecha_inicio = $dataValidated['fecha_inicio'];
+            $archivo->fecha_finalizacion = $dataValidated['fecha_finalizacion'];
+            $archivo->folio = $dataValidated['folio'];
+            $archivo->volumen = $dataValidated['volumen'];
+            $archivo->ubicacion = $dataValidated['ubicacion'];
+            $archivo->user_id = $dataValidated['user_id'];
+            $archivo->fecha_hora = $dataValidated['fecha_hora'];
+            $archivo->tipo_documento_id = $dataValidated['tipo_documento_id'];
             $archivo->save();
 
             return redirect()
